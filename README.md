@@ -3,7 +3,7 @@
 ## Sistema de Cálculo de Rescisão Trabalhista
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/pedropamn/CalculoRescisorio/refs/heads/main/screen.png" alt="Imagem de exemplo" />
+  <img src="https://raw.githubusercontent.com/pedropamn/SeveranceCalculator/refs/heads/main/screen.png" alt="Imagem de exemplo" />
 </p>
 
 O **Sistema de Cálculo de Rescisão Trabalhista** é uma aplicação web desenvolvida em **Go** (backend) e **PHP/HTML/CSS/JS** (frontend), com o framework **Fiber**, que expõe uma API RESTful. O sistema calcula as verbas rescisórias de um contrato de trabalho, incluindo salários proporcionais, décimo terceiro salário, férias e FGTS, além de realizar validações dos dados fornecidos.
