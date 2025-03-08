@@ -70,30 +70,41 @@
 												<h2>Rescisão</h2>
 											   
 											</div>
+											
+											<!-- Input para Data de Admissão -->
+											<div class="col-md-6">
+												<label for="diasTrabalhados" class="form-label">Data de Admissão:</label>
+												<input type="date" class="form-control" id="dataAdmissao" name="dataAdmissao" placeholder="" required>
+											</div>
+											
+											<!-- Input para Data de Demissão -->
+											<div class="col-md-6">
+												<label for="diasTrabalhados" class="form-label">Data de Demissão:</label>
+												<input type="date" class="form-control" id="dataDemissao" name="dataDemissao" placeholder="" required>
+											</div>
 
 											<!-- Input para Salário Mensal -->
 											<div class="col-md-6">
 												<label for="salarioMensal" class="form-label">Salário Mensal</label>
 												<input type="number" class="form-control" id="salarioMensal" name="salarioMensal" placeholder="Ex.: 3000.00" step="0.01" required>
+											</div>											
+
+											<!-- Input para Tipos de Rescisão -->
+											<div class="col-md-6">
+												<label for="tipoRescisao" class="form-label">Tipo de Rescisão:</label>
+												<select id="tipoRescisao" class="form-control">
+													<option value="justa_causa">Justa causa</option>
+													<option value="sem_justa_causa">Sem justa causa</option>
+													<option value="se_demitiu">Se demitiu</option>
+												</select>
 											</div>
 
-											<!-- Input para Dias Trabalhados no Mês -->
+											<!-- Input para meses acumulados de férias-->
 											<div class="col-md-6">
-												<label for="diasTrabalhados" class="form-label">Dias Trabalhados no Mês</label>
-												<input type="number" class="form-control" id="diasTrabalhados" name="diasTrabalhados" placeholder="Ex.: 20" required>
+												<label for="mesesAcumuladosFerias" class="form-label">Meses acumulados de férias</label>
+												<input type="number" class="form-control" id="mesesAcumuladosFerias" name="mesesAcumuladosFerias" placeholder="Ex.: 8" required>
 											</div>
-
-											<!-- Input para Anos de Empresa -->
-											<div class="col-md-6">
-												<label for="anosDeEmpresa" class="form-label">Anos de Empresa</label>
-												<input type="number" class="form-control" id="anosDeEmpresa" name="anosDeEmpresa" placeholder="Ex.: 5" required>
-											</div>
-
-											<!-- Input para Meses Trabalhados Esse Ano -->
-											<div class="col-md-6">
-												<label for="mesesTrabalhados" class="form-label">Meses Trabalhados Esse Ano</label>
-												<input type="number" class="form-control" id="mesesTrabalhados" name="mesesTrabalhados" placeholder="Ex.: 8" required>
-											</div>
+											
 
 											<div class="col-md-12 text-center">
 												<div class="loading" style="display:none;">Carregando</div>
@@ -173,34 +184,35 @@
 
 <script>
 $(document).ready(function() {
-
     $('.btnCalcular').click(function(e) {
         e.preventDefault(); // Impede o recarregamento da página
 
         // Validação dos campos
-        if ($('#salarioMensal').val() === "" || 
-            $('#diasTrabalhados').val() === "" || 
-            $('#anosDeEmpresa').val() === "" || 
-            $('#mesesTrabalhados').val() === "") {
+        if ($('#dataAdmissao').val() === "" || 
+            $('#dataDemissao').val() === "" || 
+            $('#salarioMensal').val() === "" || 
+            $('#tipoRescisao').val() === "" ||
+            $('#mesesAcumuladosFerias').val() === "") {
             alert("Por favor, preencha todos os campos.");
             return; // Interrompe a função caso algum campo esteja vazio
         }
 
         const dados = {
+            dataAdmissao: $('#dataAdmissao').val(),
+            dataDemissao: $('#dataDemissao').val(),
             salarioMensal: $('#salarioMensal').val(),
-            diasTrabalhados: $('#diasTrabalhados').val(),
-            anosDeEmpresa: $('#anosDeEmpresa').val(),
-            mesesTrabalhados: $('#mesesTrabalhados').val(),
+            tipoRescisao: $('#tipoRescisao').val(),
+            mesesAcumuladosFerias: $('#mesesAcumuladosFerias').val()
         };
 
         $.ajax({
             url: '/', // Endereço da requisição POST
             method: 'POST',
-            data: dados, // Sem JSON.stringify, para enviar como form data
+            data: dados, // Envia os dados como form data
             success: function(response) {
                 console.log('sucesso');
                 $('.bloco_resultado').css('display', 'block');
-                $('.resultado').text('R$ '+response.valor);
+                $('.resultado').text('R$ ' + response.valor);
             },
             error: function(err) {
                 console.log('erro');
@@ -208,8 +220,8 @@ $(document).ready(function() {
             }
         });
     });
-
 });
+
 
 
 </script>
